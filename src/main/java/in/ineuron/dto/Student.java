@@ -33,7 +33,7 @@ public class Student
 		return sage;
 	}
 
-	public String getSaddr()
+	public String getSadress()
 	{
 		return saddress;
 	}

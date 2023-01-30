@@ -3,6 +3,7 @@ package in.ineuron.service;
 import in.ineuron.dao.IStudentDao;
 import in.ineuron.dto.Student;
 import in.ineuron.factory.StudentDaoFactory;
+import in.ineuron.factory.StudentServiceFactory;
 
 public class StudentServiceImpl implements IStudentService
 {
@@ -35,8 +36,11 @@ public class StudentServiceImpl implements IStudentService
 	@Override
 	public String updateById(Student student)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("StudentServiceImpl.updateById()................../n");
+
+		// passing to dao layer
+		studentDao = StudentDaoFactory.getStudentDao();
+		return studentDao.updateById(student);
 	}
 
 	@Override

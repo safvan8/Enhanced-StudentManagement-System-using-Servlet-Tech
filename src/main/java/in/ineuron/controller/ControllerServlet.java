@@ -150,7 +150,7 @@ public class ControllerServlet extends HttpServlet
 						+ "'/></td></tr>");
 				out.println("<tr><th>AGE</th><td><input type='text' name='sage' value='" + student_record_check.getSage()
 						+ "'/></td></tr>");
-				out.println("<tr><th>ADDRESS</th><td><input type='text' name='saddress' value='" + student_record_check.getSaddr()
+				out.println("<tr><th>ADDRESS</th><td><input type='text' name='saddress' value='" + student_record_check.getSadress()
 						+ "'/></td></tr>");
 				out.println("<tr><td></td><td><input type='submit' value='update'/></td></tr>");
 				out.println("</table>");
@@ -165,12 +165,29 @@ public class ControllerServlet extends HttpServlet
 		}
 		if (uri.endsWith("updateform"))
 		{
-			String sid = request.getParameter("sid");
+			Integer sid = Integer.parseInt(request.getParameter("sid"));
 			String sname = request.getParameter("sname");
-			String sage = request.getParameter("sage");
+			Integer sage = Integer.parseInt(request.getParameter("sage"));
 			String saddress = request.getParameter("saddress");
 			
-			System.out.println(sid+ sname+sage+saddress);
+			Student student_for_update = new Student();
+			student_for_update.setSid(sid);
+			student_for_update.setSname(sname);
+			student_for_update.setSage(sage);
+			student_for_update.setSaddress(saddress);
+			
+			// pasing object to service layer 
+			studentService = StudentServiceFactory.getStudentService();
+			String status= studentService.updateById(student_for_update);
+			
+			if(status.equals("success"))
+			{
+				System.out.println("Student record updated.........");
+			}
+			else
+			{
+				System.out.println("student record update Failed.........");
+			}
 		}
 		
 	}

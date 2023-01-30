@@ -57,7 +57,7 @@ public class InsertStudent
 					// setting values to preparedStatement
 					preparedStatement.setString(1, student.getSname());
 					preparedStatement.setInt(2, student.getSage());
-					preparedStatement.setString(3, student.getSaddr());
+					preparedStatement.setString(3, student.getSadress());
 
 					// executing query
 					rowsAffected = preparedStatement.executeUpdate();

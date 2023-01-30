@@ -2,6 +2,7 @@ package in.ineuron.dao;
 
 import in.ineuron.dao.dboperations.InsertStudent;
 import in.ineuron.dao.dboperations.SelectStudent;
+import in.ineuron.dao.dboperations.UpdateStudent;
 import in.ineuron.dto.Student;
 
 public class StudentDaoImpl implements IStudentDao
@@ -35,8 +36,11 @@ public class StudentDaoImpl implements IStudentDao
 	@Override
 	public String updateById(Student student)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("StudentDaoImpl.updateById()................/n");
+		
+		// passing to UpdateStudent module
+		UpdateStudent updateStudent = UpdateStudent.getUpdateStudent();
+		return updateStudent.updateById(student);
 	}
 
 	@Override
