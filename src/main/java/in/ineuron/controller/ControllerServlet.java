@@ -13,13 +13,13 @@ import in.ineuron.dto.Student;
 import in.ineuron.factory.StudentServiceFactory;
 import in.ineuron.service.IStudentService;
 
-@WebServlet(urlPatterns = "/controller/*" ,loadOnStartup = 1)
+@WebServlet(urlPatterns = "/controller/*", loadOnStartup = 1)
 public class ControllerServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	
-	private IStudentService studentService=null;
-	
+
+	private IStudentService studentService = null;
+
 	static
 	{
 		System.out.println("Servlet loading....");
@@ -62,34 +62,57 @@ public class ControllerServlet extends HttpServlet
 			rd = request.getRequestDispatcher("../layout.html");
 			rd.forward(request, response);
 		}
-		
-		// to perform add operation [INSERT] : 
-		if(uri.endsWith("addform"))
+
+		// to perform add operation [INSERT] :
+		if (uri.endsWith("addform"))
 		{
 			System.out.println("insert new Student details............");
-			
+
 			// getting user input
-			String sname= request.getParameter("sname");
+			String sname = request.getParameter("sname");
 			Integer sage = Integer.parseInt(request.getParameter("sage"));
-			String saddress= request.getParameter("saddress");
+			String saddress = request.getParameter("saddress");
 
 			// creating object to pass to service layer
 			Student student = new Student();
 			student.setSname(sname);
 			student.setSage(sage);
 			student.setSaddress(saddress);
-			
+
 			// passing Student object to servcie layer
 			studentService = StudentServiceFactory.getStudentService();
-			
-			String status= studentService.save(student);
-			
-			if(status.equals("success"))
+
+			String status = studentService.save(student);
+
+			if (status.equals("success"))
 				System.out.println("record inserted successfully...");
 			else if (status.equals("failed"))
 				System.out.println("Record insertion failed........");
 			else
 				System.out.println("Something went wrong.....");
+		}
+
+		if (uri.endsWith("searchform"))
+		{
+			System.out.println("READ existing student details");
+
+			Integer sid = Integer.parseInt(request.getParameter("sid"));
+
+			// apssing sid to service layer
+			studentService = StudentServiceFactory.getStudentService();
+
+			Student resultant_student_obj = studentService.findById(sid);
+
+			// checking value fetched and displying
+			if (resultant_student_obj != null)
+			{
+				System.out.println("Student details fetached -Record Avaialable ");
+				System.out.println(resultant_student_obj);
+			}
+			else
+			{
+				System.out.println("record not avaialble......SELECT..");
+			}
 		}
 	}
 

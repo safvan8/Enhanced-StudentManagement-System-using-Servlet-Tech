@@ -38,7 +38,7 @@ public class InsertStudent
 	{
 		System.out.println("InsertStudent.save()................\n");
 
-		String OperationStatus = "";
+		String queryExecutionStatus = "";
 
 		sqlInsertQuery = "INSERT INTO schooldbo.student_tab3 (`sname`,`sage`,`saddress`)  VALUES (?,?,?)";
 
@@ -70,11 +70,11 @@ public class InsertStudent
 			}
 
 			if (rowsAffected == 1)
-				OperationStatus = "success";
+				queryExecutionStatus = "success";
 			else
-				OperationStatus = "failed";
+				queryExecutionStatus = "failed";
 
 		}
-		return OperationStatus;
+		return queryExecutionStatus;
 	}
 }

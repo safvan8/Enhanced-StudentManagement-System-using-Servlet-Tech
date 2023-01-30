@@ -14,6 +14,7 @@ public class StudentServiceFactory
 	 
 	 public static IStudentService getStudentService()
 	 {
+		 System.out.println("StudentServiceFactory.getStudentService()...\n");
 		 if (studentService==null)
 		 {
 			 studentService = new StudentServiceImpl();

@@ -13,18 +13,23 @@ public class StudentServiceImpl implements IStudentService
 	public String save(Student student)
 	{
 		System.out.println("StudentServiceImpl.save()............\n");
-		
-		// creating object of Dao and passing
+
+		// creating object of Dao and passing to Dao
 		studentDao = StudentDaoFactory.getStudentDao();
-		
+
 		return studentDao.save(student);
 	}
 
 	@Override
 	public Student findById(Integer sid)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("StudentServiceImpl.findById()..................../n");
+
+		// passing to Dao
+		studentDao = StudentDaoFactory.getStudentDao();
+
+		return studentDao.findById(sid);
+
 	}
 
 	@Override
