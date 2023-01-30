@@ -1,7 +1,6 @@
 package in.ineuron.factory;
 
 import in.ineuron.dao.IStudentDao;
-import in.ineuron.dto.StudentDaoImpl;
 
 public class StudentDaoFactory
 {
@@ -11,10 +10,10 @@ public class StudentDaoFactory
 	{
 	}
 
-	private static IStudentDao getStudentDao()
+	public static IStudentDao getStudentDao()
 	{
 		if (studentDao == null)
-			studentDao = new StudentDaoImpl();
+			studentDao = new in.ineuron.dao.StudentDaoImpl();
 
 		return studentDao;
 	}

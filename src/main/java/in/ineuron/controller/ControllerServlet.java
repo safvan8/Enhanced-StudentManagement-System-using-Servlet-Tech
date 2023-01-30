@@ -9,13 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/controller/*")
+import in.ineuron.dto.Student;
+import in.ineuron.factory.StudentServiceFactory;
+import in.ineuron.service.IStudentService;
+
+@WebServlet(urlPatterns = "/controller/*" ,loadOnStartup = 1)
 public class ControllerServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	
+	private IStudentService studentService=null;
 	
-
 	static
 	{
 		System.out.println("Servlet loading....");
@@ -62,7 +66,30 @@ public class ControllerServlet extends HttpServlet
 		// to perform add operation [INSERT] : 
 		if(uri.endsWith("addform"))
 		{
-			System.out.println("done");
+			System.out.println("insert new Student details............");
+			
+			// getting user input
+			String sname= request.getParameter("sname");
+			Integer sage = Integer.parseInt(request.getParameter("sage"));
+			String saddress= request.getParameter("saddress");
+
+			// creating object to pass to service layer
+			Student student = new Student();
+			student.setSname(sname);
+			student.setSage(sage);
+			student.setSaddress(saddress);
+			
+			// passing Student object to servcie layer
+			studentService = StudentServiceFactory.getStudentService();
+			
+			String status= studentService.save(student);
+			
+			if(status.equals("success"))
+				System.out.println("record inserted successfully...");
+			else if (status.equals("failed"))
+				System.out.println("Record insertion failed........");
+			else
+				System.out.println("Something went wrong.....");
 		}
 	}
 

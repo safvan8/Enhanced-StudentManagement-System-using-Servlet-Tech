@@ -5,7 +5,17 @@ public class Student
 	private Integer sid;
 	private String sname;
 	private Integer sage;
-	private String saddr;
+	private String saddress;
+
+	static
+	{
+		System.out.println("Student class loading.................");
+	}
+
+	public Student()
+	{
+		System.out.println("Student object creation.....");
+	}
 
 	// getters
 	public Integer getSid()
@@ -25,7 +35,7 @@ public class Student
 
 	public String getSaddr()
 	{
-		return saddr;
+		return saddress;
 	}
 
 	// setters
@@ -44,9 +54,15 @@ public class Student
 		this.sage = sage;
 	}
 
-	public void setSaddr(String saddr)
+	public void setSaddress(String saddress)
 	{
-		this.saddr = saddr;
+		this.saddress = saddress;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Student [sid=" + sid + ", sname=" + sname + ", sage=" + sage + ", saddress=" + saddress + "]";
 	}
 
 }

@@ -1,23 +1,22 @@
-package in.ineuron.service;
+package in.ineuron.dao;
 
-import in.ineuron.dao.IStudentDao;
+import in.ineuron.dao.dboperations.InsertStudent;
 import in.ineuron.dto.Student;
-import in.ineuron.factory.StudentDaoFactory;
 
-public class StudentServiceImpl implements IStudentService
+public class StudentDaoImpl implements IStudentDao
 {
 
-	private IStudentDao studentDao;
+	// Object to insert student details
+	private InsertStudent insertStudent;
 
 	@Override
 	public String save(Student student)
 	{
-		System.out.println("StudentServiceImpl.save()............\n");
+		System.out.println("StudentDaoImpl.save().............\n");
 		
-		// creating object of Dao and passing
-		studentDao = StudentDaoFactory.getStudentDao();
+		insertStudent = InsertStudent.getInsertStudent();
 		
-		return studentDao.save(student);
+		return insertStudent.save(student);
 	}
 
 	@Override

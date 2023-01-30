@@ -4,11 +4,11 @@ import in.ineuron.dto.Student;
 
 public interface IStudentService
 {
-	public abstract String save(); // INSERT new student record
+	public abstract String save(Student student); // INSERT new student record
 
-	public abstract Student findById(); // select one student details and display to end user
+	public abstract Student findById(Integer sid); // select one student details and display to end user
 
-	public abstract String updateById(); // Update existing students details
+	public abstract String updateById(Student student); // Update existing students details
 	
-	public abstract String deleteById(); // delete existing student details
+	public abstract String deleteById(Integer sid); // delete existing student details
 }
