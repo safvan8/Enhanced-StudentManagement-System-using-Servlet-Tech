@@ -2,7 +2,6 @@ package in.ineuron.dao.dboperations;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import in.ineuron.dto.Student;
@@ -14,7 +13,7 @@ public class InsertStudent
 	private static InsertStudent insertStudent = null;
 
 	private Connection connection = null;
-	private PreparedStatement preparedStatement;
+	private PreparedStatement preparedStatement=null;;
 
 	private String sqlInsertQuery = null;
 

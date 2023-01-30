@@ -12,9 +12,8 @@ public class SelectStudent
 {
 	private static SelectStudent selectStudent = null;
 	private Connection connection;
-	private PreparedStatement preparedStatement;
-	private String sqlSelectQuery;
-	private ResultSet resultSet;
+	private String sqlSelectQuery=null;
+	
 
 	// restrict Object creation outside class
 	private SelectStudent()
@@ -35,13 +34,12 @@ public class SelectStudent
 		System.out.println("SelectStudent.findById()...................\n");
 		
 		sqlSelectQuery = "SELECT * FROM schooldbo.student_tab3 where sid=?";
-		String queryExecutionStatus = "";
-
 		connection = JdbcUtil.getConnection();
+		PreparedStatement preparedStatement=null;
+		ResultSet resultSet=null;;
 
 		// to store result feched from select query
-		Student resultant_student_obj = new Student();
-		resultant_student_obj.setSid(sid);
+		Student resultant_student_obj =null;
 
 		if (connection != null)
 		{
@@ -53,11 +51,16 @@ public class SelectStudent
 				// executing query;
 				if (preparedStatement != null)
 				{
+					
 					resultSet = preparedStatement.executeQuery();
-
+					
 					// storing the result to new Student Object
-					while (resultSet.next())
+					if (resultSet.next())
 					{
+						// only create stdent object if value is found
+						resultant_student_obj=new Student();
+					
+						resultant_student_obj.setSid(resultSet.getInt(1));
 						resultant_student_obj.setSname(resultSet.getString(2));
 						resultant_student_obj.setSage(resultSet.getInt(3));
 						resultant_student_obj.setSaddress(resultSet.getString(4));

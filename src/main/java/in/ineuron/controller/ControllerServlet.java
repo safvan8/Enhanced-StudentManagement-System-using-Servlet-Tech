@@ -1,6 +1,7 @@
 package in.ineuron.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -114,6 +115,64 @@ public class ControllerServlet extends HttpServlet
 				System.out.println("record not avaialble......SELECT..");
 			}
 		}
+		
+		if (uri.endsWith("editform"))
+		{
+			System.out.println("to get Existing student details before updation...........");
+			
+			// getting id enterd by user
+			Integer sid = Integer.parseInt(request.getParameter("sid"));
+			
+			studentService = StudentServiceFactory.getStudentService();
+			
+			// checking whether student is existing or not
+			Student student_record_check = studentService.findById(sid);
+			
+			
+			// checking whether the record existing in db or not 
+			if (student_record_check != null)
+			{
+				System.out.println("record found");
+				
+				response.setContentType("text/html");
+				
+				// display editpage using html
+				PrintWriter out = response.getWriter();
+				out.println("<html><head><title>OUTPUT</title></head>");
+				out.println("<body bgcolor='lightblue'>");
+				out.println("<br/><br/><br/>");
+				// already inside controller , that's why ,mentioned on "./updateform"
+				out.println("<form method='post' action='./updateform'>");
+				out.println("<table align='center'>");
+				out.println("<tr><th>ID</th><td>" + student_record_check.getSid() + "</td></tr>");
+				out.println("<input type='hidden' name='sid' value='" + student_record_check.getSid() + "'/>");
+				out.println("<tr><th>NAME</th><td><input type='text' name='sname' value='" + student_record_check.getSname()
+						+ "'/></td></tr>");
+				out.println("<tr><th>AGE</th><td><input type='text' name='sage' value='" + student_record_check.getSage()
+						+ "'/></td></tr>");
+				out.println("<tr><th>ADDRESS</th><td><input type='text' name='saddress' value='" + student_record_check.getSaddr()
+						+ "'/></td></tr>");
+				out.println("<tr><td></td><td><input type='submit' value='update'/></td></tr>");
+				out.println("</table>");
+				out.println("</form>");
+				out.println("</body>");
+				out.println("</html>");
+				out.close();
+			}
+			else
+				System.out.println("no record found");
+			
+		}
+		if (uri.endsWith("updateform"))
+		{
+			String sid = request.getParameter("sid");
+			String sname = request.getParameter("sname");
+			String sage = request.getParameter("sage");
+			String saddress = request.getParameter("saddress");
+			
+			System.out.println(sid+ sname+sage+saddress);
+		}
+		
 	}
 
 }
