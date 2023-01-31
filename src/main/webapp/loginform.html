@@ -100,22 +100,17 @@
 
   </head>
 <body>
-  <!-- Container for the form -->
   <div class="form-container">
-    <!-- Header for the form -->
-    <div class="form-header">
-      <!-- Title for the header -->
-      <h2>Login</h2>
-    </div>
-    <!-- Body for the form -->
-    <div class="form-body">
-      <!-- Input field for the username -->
-      <input type="email" class="form-input" placeholder="Email (must end with 'ineuron.ai')" required pattern=".+@ineuron.ai">
-      <!-- Input field for the password -->
-      <input type="password" class="form-input" placeholder="Password" required>
-      <!-- Submit button -->
-      <button class="form-submit">Submit</button>
-    </div>
+    <form method="post" action="./controllerServet">
+      <div class="form-header">
+        <h2>Login</h2>
+      </div>
+      <div class="form-body">
+        <input type="email" class="form-input" placeholder="Email (must end with 'ineuron.ai')" required pattern=".+@ineuron.ai">
+        <input type="password" class="form-input" placeholder="Password" required>
+        <button type="submit" class="form-submit">Submit</button>
+      </div>
+    </form>
   </div>
 </body>
 </html>
