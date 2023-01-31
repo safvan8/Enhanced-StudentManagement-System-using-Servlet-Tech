@@ -93,6 +93,7 @@ public class ControllerServlet extends HttpServlet
 				System.out.println("Something went wrong.....");
 		}
 
+		// to perform add operation [READ] :
 		if (uri.endsWith("searchform"))
 		{
 			System.out.println("READ existing student details");
@@ -109,10 +110,38 @@ public class ControllerServlet extends HttpServlet
 			{
 				System.out.println("Student details fetached -Record Avaialable ");
 				System.out.println(resultant_student_obj);
+				
+				PrintWriter out = response.getWriter();
+				out.println("<html><head><title>STUDENT DATA</title></head>");
+				out.println("<body bgcolor='lightblue'>");
+				out.println("<br/><br/><br/>");
+				out.println("<table align='center' border='1'>");
+				out.println("<tr>");
+				out.println("<th>SID</th>");
+				out.println("<th>SNAME</th>");
+				out.println("<th>SAGE</th>");
+				out.println("<th>SADDRESS</th>");
+				out.println("</tr>");
+
+				out.println("<tr>");
+				out.println("<td>" + resultant_student_obj.getSid() + "</td>");
+				out.println("<td>" + resultant_student_obj.getSname() + "</td>");
+				out.println("<td>" + resultant_student_obj.getSage() + "</td>");
+				out.println("<td>" + resultant_student_obj.getSadress() + "</td>");
+				out.println("</tr>");
+
+				out.println("</table>");
+				out.println("</body>");
+				out.println("</html>");
+
+				out.close();
+				
 			}
 			else
 			{
 				System.out.println("record not avaialble......SELECT..");
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("../notfound.html");
+				requestDispatcher.forward(request, response);
 			}
 		}
 		
