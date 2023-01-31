@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -86,11 +87,22 @@ public class ControllerServlet extends HttpServlet
 			String status = studentService.save(student);
 
 			if (status.equals("success"))
+			{
 				System.out.println("record inserted successfully...");
-			else if (status.equals("failed"))
+				rd = request.getRequestDispatcher("htt/success.html");
+				rd.forward(request, response);
+
+			} else if (status.equals("failed"))
+			{
+				rd = request.getRequestDispatcher("../notfound.html");
+				rd.forward(request, response);
 				System.out.println("Record insertion failed........");
-			else
+			} else
+			{
+				rd = request.getRequestDispatcher("../failed.html");
+				rd.forward(request, response);
 				System.out.println("Something went wrong.....");
+			}
 		}
 
 		// to perform add operation [READ] :
@@ -110,7 +122,7 @@ public class ControllerServlet extends HttpServlet
 			{
 				System.out.println("Student details fetached -Record Avaialable ");
 				System.out.println(resultant_student_obj);
-				
+
 				PrintWriter out = response.getWriter();
 				out.println("<html><head><title>STUDENT DATA</title></head>");
 				out.println("<body bgcolor='lightblue'>");
@@ -135,36 +147,35 @@ public class ControllerServlet extends HttpServlet
 				out.println("</html>");
 
 				out.close();
-				
-			}
-			else
+
+			} else
 			{
 				System.out.println("record not avaialble......SELECT..");
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("../notfound.html");
 				requestDispatcher.forward(request, response);
 			}
 		}
-		
+
+		// to display Exising data in editform ,before update [UPDATE] :
 		if (uri.endsWith("editform"))
 		{
 			System.out.println("to get Existing student details before updation...........");
-			
+
 			// getting id enterd by user
 			Integer sid = Integer.parseInt(request.getParameter("sid"));
-			
+
 			studentService = StudentServiceFactory.getStudentService();
-			
+
 			// checking whether student is existing or not
 			Student student_record_check = studentService.findById(sid);
-			
-			
-			// checking whether the record existing in db or not 
+
+			// checking whether the record existing in db or not
 			if (student_record_check != null)
 			{
 				System.out.println("record found");
-				
+
 				response.setContentType("text/html");
-				
+
 				// display editpage using html
 				PrintWriter out = response.getWriter();
 				out.println("<html><head><title>OUTPUT</title></head>");
@@ -175,50 +186,57 @@ public class ControllerServlet extends HttpServlet
 				out.println("<table align='center'>");
 				out.println("<tr><th>ID</th><td>" + student_record_check.getSid() + "</td></tr>");
 				out.println("<input type='hidden' name='sid' value='" + student_record_check.getSid() + "'/>");
-				out.println("<tr><th>NAME</th><td><input type='text' name='sname' value='" + student_record_check.getSname()
-						+ "'/></td></tr>");
-				out.println("<tr><th>AGE</th><td><input type='text' name='sage' value='" + student_record_check.getSage()
-						+ "'/></td></tr>");
-				out.println("<tr><th>ADDRESS</th><td><input type='text' name='saddress' value='" + student_record_check.getSadress()
-						+ "'/></td></tr>");
+				out.println("<tr><th>NAME</th><td><input type='text' name='sname' value='"
+						+ student_record_check.getSname() + "'/></td></tr>");
+				out.println("<tr><th>AGE</th><td><input type='text' name='sage' value='"
+						+ student_record_check.getSage() + "'/></td></tr>");
+				out.println("<tr><th>ADDRESS</th><td><input type='text' name='saddress' value='"
+						+ student_record_check.getSadress() + "'/></td></tr>");
 				out.println("<tr><td></td><td><input type='submit' value='update'/></td></tr>");
 				out.println("</table>");
 				out.println("</form>");
 				out.println("</body>");
 				out.println("</html>");
 				out.close();
-			}
-			else
+			} else
+			{
 				System.out.println("no record found");
-			
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("../notfound.html");
+				requestDispatcher.forward(request, response);
+			}
 		}
+
+		// to perform update operation [UPDATE] :
 		if (uri.endsWith("updateform"))
 		{
 			Integer sid = Integer.parseInt(request.getParameter("sid"));
 			String sname = request.getParameter("sname");
 			Integer sage = Integer.parseInt(request.getParameter("sage"));
 			String saddress = request.getParameter("saddress");
-			
+
 			Student student_for_update = new Student();
 			student_for_update.setSid(sid);
 			student_for_update.setSname(sname);
 			student_for_update.setSage(sage);
 			student_for_update.setSaddress(saddress);
-			
-			// pasing object to service layer 
+
+			// pasing object to service layer
 			studentService = StudentServiceFactory.getStudentService();
-			String status= studentService.updateById(student_for_update);
-			
-			if(status.equals("success"))
+			String status = studentService.updateById(student_for_update);
+
+			if (status.equals("success"))
 			{
 				System.out.println("Student record updated.........");
-			}
-			else
+				RequestDispatcher requestDispatcher =request.getRequestDispatcher("../success.html");
+				requestDispatcher.forward(request, response);
+			} else
 			{
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher( "../failed.html");
+				requestDispatcher.forward(request, response);
 				System.out.println("student record update Failed.........");
 			}
 		}
-		
+
 	}
 
 }
