@@ -1,0 +1,22 @@
+<web-app>
+	<servlet>
+		<servlet-name>controllerServlet</servlet-name>
+		<servlet-class>in.ineuron.controller.ControllerServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>controllerServlet</servlet-name>
+		<url-pattern>/controller/*</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+		<filter-name>logF</filter-name>
+		<filter-class>in.ineuron.filters.LoginFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>logF</filter-name>
+		<servlet-name>controllerServlet</servlet-name>
+	</filter-mapping>
+
+</web-app>

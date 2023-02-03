@@ -15,7 +15,7 @@ import in.ineuron.dto.Student;
 import in.ineuron.factory.StudentServiceFactory;
 import in.ineuron.service.IStudentService;
 
-@WebServlet(urlPatterns = "/controller/*", loadOnStartup = 1)
+//@WebServlet(urlPatterns = "/controller/*", loadOnStartup = 1)
 public class ControllerServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
