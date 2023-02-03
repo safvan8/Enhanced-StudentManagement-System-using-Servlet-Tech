@@ -61,8 +61,11 @@ public class ControllerServlet extends HttpServlet
 		RequestDispatcher rd = null;
 		if (uri.endsWith("layout"))
 		{
+			System.out.println(request.getParameter("email")+"");
+			
 			rd = request.getRequestDispatcher("../layout.html");
 			rd.forward(request, response);
+			
 		}
 
 		// to perform add operation [INSERT] :
