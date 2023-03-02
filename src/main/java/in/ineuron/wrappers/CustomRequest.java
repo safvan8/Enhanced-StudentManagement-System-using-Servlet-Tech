@@ -25,7 +25,7 @@ public class CustomRequest extends HttpServletRequestWrapper
 		
 		String modifiedMail=null;
 		
-		if (paramName.equals("email") && paramValue != null)
+		if (("email").equals(paramName) && paramValue != null)
 		{
 			if (paramValue.toLowerCase().endsWith("@ineuron.ai"))
 				modifiedMail= paramValue;
