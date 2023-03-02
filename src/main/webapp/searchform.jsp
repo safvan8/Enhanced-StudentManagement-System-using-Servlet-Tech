@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +10,7 @@
 	<br />
 	<br />
 	<br />
-	<form method="get" action='./controller/editform'>
+	<form method="get" action='./controller/searchform'>
 		<table align='center'>
 			<tr>
 				<td>SID</td>
@@ -16,7 +18,7 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><input type='submit' value='Edit-Detils' /></td>
+				<td><input type='submit' value='search' /></td>
 			</tr>
 		</table>
 	</form>

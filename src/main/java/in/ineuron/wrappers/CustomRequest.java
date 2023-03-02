@@ -19,6 +19,7 @@ public class CustomRequest extends HttpServletRequestWrapper
 	@Override
 	public String getParameter(String paramName)
 	{
+		System.out.println("CustomRequest.getParameter()4");
 		System.out.println(orig_request.getParameter(paramName));
 		/// finding paramValue using paramName
 		String paramValue = orig_request.getParameter(paramName);
@@ -27,11 +28,19 @@ public class CustomRequest extends HttpServletRequestWrapper
 		
 		if (("email").equals(paramName) && paramValue != null)
 		{
+			System.out.println("CustomRequest.getParameter()5");
+
 			if (paramValue.toLowerCase().endsWith("@ineuron.ai"))
 				modifiedMail= paramValue;
 			else
 				modifiedMail= paramValue + "@ineuron.ai";
 		}
-		return modifiedMail;
+		System.out.println("CustomRequest.getParameter()8");
+
+		// if parameter modified, pass modified value, else original
+		if (modifiedMail != null)
+			return modifiedMail;
+		else
+			return paramValue;
 	}
 }

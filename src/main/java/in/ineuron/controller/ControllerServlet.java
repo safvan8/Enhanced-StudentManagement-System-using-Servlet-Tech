@@ -77,6 +77,7 @@ public class ControllerServlet extends HttpServlet
 			String sname = request.getParameter("sname");
 			Integer sage = Integer.parseInt(request.getParameter("sage"));
 			String saddress = request.getParameter("saddress");
+			System.out.println("CustomRequest.getParameter()6");
 
 			// creating object to pass to service layer
 			Student student = new Student();
@@ -92,7 +93,7 @@ public class ControllerServlet extends HttpServlet
 			if (status.equals("success"))
 			{
 				System.out.println("record inserted successfully...");
-				rd = request.getRequestDispatcher("htt/success.html");
+				rd = request.getRequestDispatcher("../success.html");
 				rd.forward(request, response);
 
 			} else if (status.equals("failed"))
@@ -102,7 +103,7 @@ public class ControllerServlet extends HttpServlet
 				System.out.println("Record insertion failed........");
 			} else
 			{
-				rd = request.getRequestDispatcher("../failed.html");
+				rd = request.getRequestDispatcher("../failure.html");
 				rd.forward(request, response);
 				System.out.println("Something went wrong.....");
 			}
@@ -118,6 +119,7 @@ public class ControllerServlet extends HttpServlet
 			// apssing sid to service layer
 			studentService = StudentServiceFactory.getStudentService();
 
+			System.out.println("Hey safvan");
 			Student resultant_student_obj = studentService.findById(sid);
 
 			// checking value fetched and displying
