@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import in.ineuron.dto.Student;
 import in.ineuron.factory.StudentServiceFactory;
@@ -61,11 +62,11 @@ public class ControllerServlet extends HttpServlet
 		RequestDispatcher rd = null;
 		if (uri.endsWith("layout"))
 		{
-			System.out.println(request.getParameter("email")+"");
-			
+			System.out.println(request.getParameter("email") + "");
+
 			rd = request.getRequestDispatcher("../layout.html");
 			rd.forward(request, response);
-			
+
 		}
 
 		// to perform add operation [INSERT] :
@@ -77,7 +78,6 @@ public class ControllerServlet extends HttpServlet
 			String sname = request.getParameter("sname");
 			Integer sage = Integer.parseInt(request.getParameter("sage"));
 			String saddress = request.getParameter("saddress");
-			System.out.println("CustomRequest.getParameter()6");
 
 			// creating object to pass to service layer
 			Student student = new Student();
@@ -232,14 +232,26 @@ public class ControllerServlet extends HttpServlet
 			if (status.equals("success"))
 			{
 				System.out.println("Student record updated.........");
-				RequestDispatcher requestDispatcher =request.getRequestDispatcher("../success.html");
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("../success.html");
 				requestDispatcher.forward(request, response);
 			} else
 			{
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher( "../failed.html");
+				RequestDispatcher requestDispatcher = request.getRequestDispatcher("../failed.html");
 				requestDispatcher.forward(request, response);
 				System.out.println("student record update Failed.........");
 			}
+		}
+
+		// logout mechanism
+		if (uri.endsWith("logout"))
+		{
+			HttpSession session = request.getSession();
+			session.invalidate();
+
+			System.out.println("Logout sucessfull- session.invalidate()");
+
+			request.getRequestDispatcher("../logoutSuccess.html").forward(request, response);
+
 		}
 
 	}

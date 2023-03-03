@@ -59,6 +59,8 @@ System.out.println("LoginFilter.doFilter()1");
 			{
 				System.out.println("Login failed: ");
 				
+//				req.getRequestDispatcher("")
+//				
 				 // If the email and password are invalid, send an error message
 //	            customRequest.setAttribute("error", "Invalid email or password");
 //	            req.getRequestDispatcher("/login.jsp").forward(customRequest, res);
